@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Monthly Invoicing Reminder</title>
+  <style>
+    h1 {
+      text-align: center;
+    }
+  </style>
+  <style>
+    /* Add your custom CSS styles here */
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+      background-color: white;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      height: 100vh;
+    }
+  </style>
+
+</head>
+
+<body>
+  <h1>Monthly Invoicing Reminder</h1>
+  <p>Dear
+    <?= user.first ?> ,
+  </p>
+
+  <p>This is a friendly reminder that your monthly invoice is due on [Due Date]. Please ensure that payment is made by
+    this date to avoid any late fees or service interruptions.</p>
+
+  <p>If you have any questions or need further assistance, please don't hesitate to contact our support team at
+    [Support Email/Phone Number].</p>
+
+  <tableid>
+    <tr>
+      <th>Day</th>
+      <th>Kilometers Driven</th>
+      <th>Fuel costs</th>
+      <th>Total</th>
+    </tr>
+    <? for (var i = 0; i < data.length; i++) { ?>
+    <tr>
+      <td>
+        <?= data[i].day ?>
+      </td>
+      <td>
+        <?= data[i].km ?>
+      </td>
+      <td>
+        <?= data[i].fuel ?>
+      </td>
+      <td>
+        <?= data[i].total ?>
+      </td>
+    </tr>
+    <? } ?>
+    </table>
+
+    <p>Thank you for your prompt attention to this matter.</p>
+
+    <p>Best regards,</p>
+    <p>[Your Name]</p>
+</body>
+
+</html>
