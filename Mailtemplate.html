@@ -3,74 +3,173 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Monthly Invoicing Reminder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Overzicht openstaande ritten</title>
   <style>
-    h1 {
-      text-align: center;
-    }
-  </style>
-  <style>
-    /* Add your custom CSS styles here */
     @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
     body {
       font-family: 'Roboto', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-size: 20px;
+      /* Adjusted for consistency with table */
     }
 
-    body {
-      background-color: white;
+    .container {
+      background-color: #ffffff;
       padding: 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: flex-start;
-      height: 100vh;
+      max-width: 800px;
+      width: 100%;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #4CAF50;
+      /* Matching table header background color */
+      font-weight: 700;
+      /* Making header bold to match table headers */
+    }
+
+    p {
+      text-align: left;
+      /* Ensures paragraphs align similarly to table content */
+      color: #333333;
+      /* Matching table cell text color */
+      line-height: 1.6;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      table-layout: fixed;
+    }
+
+    th,
+    td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #4CAF50;
+      color: white;
+      font-weight: 700;
+    }
+
+    td {
+      color: #333333;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    tr:nth-child(odd) {
+      background-color: #ffffff;
+    }
+
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    .footer {
+      margin-top: 20px;
+      text-align: center;
+      color: #333333;
+      /* Matching table cell text color */
+      font-size: 16px;
+      /* Adjusting font size for consistency */
+    }
+
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      margin-top: 20px;
+      background-color: #4CAF50;
+      color: white;
+      text-align: center;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
     }
   </style>
-
 </head>
 
 <body>
-  <h1>Monthly Invoicing Reminder</h1>
-  <p>Dear
-    <?= user.first ?> ,
-  </p>
+  <div class="container">
+    <h1>Monthly Invoicing Reminder</h1>
+    <p>Hallo
+      <?= user.firstName ?>,
+    </p>
 
-  <p>This is a friendly reminder that your monthly invoice is due on [Due Date]. Please ensure that payment is made by
-    this date to avoid any late fees or service interruptions.</p>
+    <p>Hierbij een overzicht van de openstaande ritten:</p>
 
-  <p>If you have any questions or need further assistance, please don't hesitate to contact our support team at
-    [Support Email/Phone Number].</p>
-
-  <tableid>
-    <tr>
-      <th>Day</th>
-      <th>Kilometers Driven</th>
-      <th>Fuel costs</th>
-      <th>Total</th>
-    </tr>
-    <? for (var i = 0; i < data.length; i++) { ?>
-    <tr>
-      <td>
-        <?= data[i].day ?>
-      </td>
-      <td>
-        <?= data[i].km ?>
-      </td>
-      <td>
-        <?= data[i].fuel ?>
-      </td>
-      <td>
-        <?= data[i].total ?>
-      </td>
-    </tr>
-    <? } ?>
+    <table>
+      <tr>
+        <th>Date</th>
+        <th>Kilometers Driven</th>
+        <th>Fuel costs</th>
+        <th>Total</th>
+      </tr>
+      <? for (var i = 0; i < data.length; i++) { ?>
+      <tr>
+        <td>
+          <?= data[i].date ?>
+        </td>
+        <td>
+          <?= data[i].km ?> km
+        </td>
+        <td>
+          <?= data[i].fuelPaiment ?> €
+        </td>
+        <td>
+          <?= data[i].totalCosts ?> €
+        </td>
+      </tr>
+      <? } ?>
     </table>
 
-    <p>Thank you for your prompt attention to this matter.</p>
 
-    <p>Best regards,</p>
-    <p>[Your Name]</p>
+    <p id="paymentMessage"></p>
+
+    <? if (payback) { ?>
+    <div>
+      <p>Je hebt deze maand meer kosten gemaakt dan je hebt gereden. Het bedrag van
+        <b style="color: #4CAF50;"><?= total ?>€</b>, wordt je zo
+        snel mogelijk teruggestort.</p>
+    </div>
+    <? } else { ?>
+    <div>
+      <p>De totale kosten bedragen
+        <b style="color: red;"><?= total ?>€</b>. Gelieve dat bedrag over te schrijven rekening <b><?= bankaccount ?></b> op naam van <b><?= accountname ?></b>.
+      </p>
+    </div>
+    <? } ?>
+
+    <p>
+      <?= summary ?>
+    </p>
+
+    <p>Alvast bedankt en nog veel rijplezier!</p>
+
+    <p>Groeten,</p>
+    <p>David</p>
+
+    <div class="footer">
+      drubbeldrive
+    </div>
+  </div>
 </body>
 
 </html>
